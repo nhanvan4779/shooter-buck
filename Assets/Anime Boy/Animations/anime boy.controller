@@ -62,14 +62,20 @@ AnimatorController:
   m_Name: anime boy
   serializedVersion: 5
   m_AnimatorParameters:
-  - m_Name: vSpeed_f
+  - m_Name: vSpeedNormalized_f
     m_Type: 1
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 0}
-  - m_Name: hSpeed_f
+  - m_Name: hSpeedNormalized_f
     m_Type: 1
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 0}
+  - m_Name: isWalking_b
+    m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
@@ -95,9 +101,9 @@ AnimatorStateTransition:
   m_PrefabAsset: {fileID: 0}
   m_Name: 
   m_Conditions:
-  - m_ConditionMode: 4
-    m_ConditionEvent: vSpeed_f
-    m_EventTreshold: 0.01
+  - m_ConditionMode: 2
+    m_ConditionEvent: isWalking_b
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -2873789602552481882}
   m_Solo: 0
@@ -119,7 +125,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: walk_run with rifle Blend Tree
+  m_Name: rifle movement Blend Tree
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -147,9 +153,9 @@ AnimatorStateTransition:
   m_PrefabAsset: {fileID: 0}
   m_Name: 
   m_Conditions:
-  - m_ConditionMode: 3
-    m_ConditionEvent: vSpeed_f
-    m_EventTreshold: 0.01
+  - m_ConditionMode: 1
+    m_ConditionEvent: isWalking_b
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 3730728948442003596}
   m_Solo: 0
@@ -173,10 +179,19 @@ BlendTree:
   m_Name: Blend Tree
   m_Childs:
   - serializedVersion: 2
-    m_Motion: {fileID: -203655887218126122, guid: ddab8522dc6495e4a9537dd6a8a31348,
+    m_Motion: {fileID: -203655887218126122, guid: 1ee2f3eed0432284db08d40e9c115c44,
       type: 3}
     m_Threshold: 0
     m_Position: {x: 0, y: 0}
+    m_TimeScale: 1
+    m_CycleOffset: 0
+    m_DirectBlendParameter: vSpeed_f
+    m_Mirror: 0
+  - serializedVersion: 2
+    m_Motion: {fileID: -203655887218126122, guid: ddab8522dc6495e4a9537dd6a8a31348,
+      type: 3}
+    m_Threshold: 0.125
+    m_Position: {x: 0, y: 0.4}
     m_TimeScale: 1
     m_CycleOffset: 0
     m_DirectBlendParameter: speed_f
@@ -184,16 +199,70 @@ BlendTree:
   - serializedVersion: 2
     m_Motion: {fileID: -203655887218126122, guid: 86026d515ffac6042b74a1fe80722079,
       type: 3}
-    m_Threshold: 1
-    m_Position: {x: 0, y: 0}
+    m_Threshold: 0.25
+    m_Position: {x: 0, y: 1}
     m_TimeScale: 1
     m_CycleOffset: 0
     m_DirectBlendParameter: speed_f
     m_Mirror: 0
-  m_BlendParameter: vSpeed_f
-  m_BlendParameterY: Blend
+  - serializedVersion: 2
+    m_Motion: {fileID: -203655887218126122, guid: bbdf73a26f1c8f549858bcc4047f782f,
+      type: 3}
+    m_Threshold: 0.375
+    m_Position: {x: -0.4, y: 0}
+    m_TimeScale: 1
+    m_CycleOffset: 0
+    m_DirectBlendParameter: vSpeed_f
+    m_Mirror: 0
+  - serializedVersion: 2
+    m_Motion: {fileID: -203655887218126122, guid: 6c663e2f9b90b914b99267d13f72aef2,
+      type: 3}
+    m_Threshold: 0.5
+    m_Position: {x: -1, y: 0}
+    m_TimeScale: 1
+    m_CycleOffset: 0
+    m_DirectBlendParameter: vSpeed_f
+    m_Mirror: 0
+  - serializedVersion: 2
+    m_Motion: {fileID: -203655887218126122, guid: ed082fa4a9ad0134bb99689e5efe8d29,
+      type: 3}
+    m_Threshold: 0.625
+    m_Position: {x: 0.4, y: 0}
+    m_TimeScale: 1
+    m_CycleOffset: 0
+    m_DirectBlendParameter: vSpeed_f
+    m_Mirror: 0
+  - serializedVersion: 2
+    m_Motion: {fileID: -203655887218126122, guid: 642261e7ba4e69f43a33ebcac4a99992,
+      type: 3}
+    m_Threshold: 0.75
+    m_Position: {x: 1, y: 0}
+    m_TimeScale: 1
+    m_CycleOffset: 0
+    m_DirectBlendParameter: vSpeed_f
+    m_Mirror: 0
+  - serializedVersion: 2
+    m_Motion: {fileID: -203655887218126122, guid: edf37d12e45bd3d4a8964ca5305a6ed5,
+      type: 3}
+    m_Threshold: 0.875
+    m_Position: {x: 0, y: -0.4}
+    m_TimeScale: 1
+    m_CycleOffset: 0
+    m_DirectBlendParameter: vSpeedNormalized_f
+    m_Mirror: 0
+  - serializedVersion: 2
+    m_Motion: {fileID: -203655887218126122, guid: aea6c78e544fc0a498e47e57d4a27e68,
+      type: 3}
+    m_Threshold: 1
+    m_Position: {x: 0, y: -1}
+    m_TimeScale: 1
+    m_CycleOffset: 0
+    m_DirectBlendParameter: vSpeedNormalized_f
+    m_Mirror: 0
+  m_BlendParameter: hSpeedNormalized_f
+  m_BlendParameterY: vSpeedNormalized_f
   m_MinThreshold: 0
   m_MaxThreshold: 1
   m_UseAutomaticThresholds: 1
   m_NormalizedBlendValues: 0
-  m_BlendType: 0
+  m_BlendType: 2

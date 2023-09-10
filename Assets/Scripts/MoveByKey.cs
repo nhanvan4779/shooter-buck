@@ -10,7 +10,7 @@ public class MoveByKey : MonoBehaviour
 
     [SerializeField] private float runSpeed = 10f;
 
-    [SerializeField] private float walkSpeedScale = 0.5f;
+    [SerializeField] private float walkSpeedScale = 0.4f;
 
     private float m_vInput;
 
@@ -21,6 +21,8 @@ public class MoveByKey : MonoBehaviour
         m_vInput = Input.GetAxis("Vertical");
         m_hInput = Input.GetAxis("Horizontal");
 
+        ControlAnimations();
+
         if (Input.GetKey(KeyCode.LeftShift))
         {
             Walk();
@@ -29,8 +31,6 @@ public class MoveByKey : MonoBehaviour
         // Move the character
         Vector3 moveDirection = transform.forward * m_vInput + transform.right * m_hInput;
         characterController.SimpleMove(moveDirection * runSpeed);
-
-        ControlAnimations();
     }
 
     private void Walk()
@@ -41,7 +41,23 @@ public class MoveByKey : MonoBehaviour
 
     private void ControlAnimations()
     {
-        animator.SetFloat(Animator.StringToHash("vSpeed_f"), m_vInput);
-        animator.SetFloat(Animator.StringToHash("hSpeed_f"), m_hInput);
+        animator.SetBool(Animator.StringToHash("isWalking_b"), IsWalking);
+        animator.SetFloat(Animator.StringToHash("vSpeedNormalized_f"), m_vInput);
+        animator.SetFloat(Animator.StringToHash("hSpeedNormalized_f"), m_hInput);
+    }
+
+    public bool IsWalking
+    {
+        get
+        {
+            if (Mathf.Abs(m_vInput) + Mathf.Abs(m_hInput) > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }

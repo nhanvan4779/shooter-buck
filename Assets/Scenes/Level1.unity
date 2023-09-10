@@ -385,7 +385,7 @@ MonoBehaviour:
   characterController: {fileID: 898697325}
   animator: {fileID: 898697323}
   runSpeed: 10
-  walkSpeedScale: 0.5
+  walkSpeedScale: 0.4
 --- !u!114 &898697327
 MonoBehaviour:
   m_ObjectHideFlags: 0

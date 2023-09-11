@@ -23,6 +23,7 @@ public class MoveByKey : MonoBehaviour
 
         ControlAnimations();
 
+        // Hold left shift key for walking instead of running
         if (Input.GetKey(KeyCode.LeftShift))
         {
             Walk();

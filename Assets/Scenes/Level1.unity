@@ -213,7 +213,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 36bf0c39b5f7b6240bf0b52746b5ec00,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.02
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 36bf0c39b5f7b6240bf0b52746b5ec00,
         type: 3}
@@ -301,7 +301,7 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 36bf0c39b5f7b6240bf0b52746b5ec00,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1163865511}
+      addedObject: {fileID: 1735109918}
     - targetCorrespondingSourceObject: {fileID: 1852576806548013000, guid: 36bf0c39b5f7b6240bf0b52746b5ec00,
         type: 3}
       insertIndex: -1
@@ -363,13 +363,13 @@ CharacterController:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Height: 1.7
+  m_Height: 1.64
   m_Radius: 0.3
   m_SlopeLimit: 45
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 0.845, z: 0.03}
+  m_Center: {x: 0, y: 0.88, z: 0.03}
 --- !u!114 &898697326
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -398,7 +398,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e881f94878dc5645bf812d94bd2205f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  anglePerSecond: 60
+  angleOverDistance: 2.5
+  cameraHolder: {fileID: 1735109918}
+  maxPitchAngle: 75
+  minPitchAngle: -75
 --- !u!1 &1163865508
 GameObject:
   m_ObjectHideFlags: 0
@@ -485,13 +488,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1163865508}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.11060168, y: 0, z: 0, w: 0.99386483}
-  m_LocalPosition: {x: 0, y: 1.85, z: -2.65}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 898697324}
-  m_LocalEulerAnglesHint: {x: 12.7, y: 0, z: 0}
+  m_Father: {fileID: 1735109918}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1163865512
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -686,6 +689,38 @@ Transform:
   - {fileID: 532877632}
   m_Father: {fileID: 825072114}
   m_LocalEulerAnglesHint: {x: 91.9, y: 101.11, z: 180}
+--- !u!1 &1735109917
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1735109918}
+  m_Layer: 0
+  m_Name: CameraHolder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1735109918
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1735109917}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.47, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1163865511}
+  m_Father: {fileID: 898697324}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2105759394
 GameObject:
   m_ObjectHideFlags: 0

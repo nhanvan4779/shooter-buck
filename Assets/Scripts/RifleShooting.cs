@@ -8,13 +8,15 @@ public class RifleShooting : MonoBehaviour
 
     private Coroutine disableShootingState;
 
+    private WaitForSeconds shootingStateDuration = new WaitForSeconds(1f);
+
     private void Update()
     {
         if (Input.GetButtonDown("Fire1"))
         {
             Shoot();
 
-            EnableShootingStateFor(1);
+            EnableShootingStateMomentarily();
         }
     }
 
@@ -24,19 +26,19 @@ public class RifleShooting : MonoBehaviour
         Debug.Log("Shoot the rifle!");
     }
 
-    private IEnumerator DisableShootingStateIn(float time)
+    private IEnumerator DisableShootingState()
     {
-        yield return new WaitForSeconds(time);
+        yield return shootingStateDuration;
         animator.SetBool(Animator.StringToHash("isShooting_b"), false);
     }
 
-    private void EnableShootingStateFor(float time)
+    private void EnableShootingStateMomentarily()
     {
         if (disableShootingState != null)
         {
             StopCoroutine(disableShootingState);
         }
         animator.SetBool(Animator.StringToHash("isShooting_b"), true);
-        disableShootingState = StartCoroutine(DisableShootingStateIn(time));
+        disableShootingState = StartCoroutine(DisableShootingState());
     }
 }

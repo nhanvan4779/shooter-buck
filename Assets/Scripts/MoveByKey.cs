@@ -21,33 +21,33 @@ public class MoveByKey : MonoBehaviour
         m_vInput = Input.GetAxis("Vertical");
         m_hInput = Input.GetAxis("Horizontal");
 
-        ControlAnimations();
-
-        // Hold left shift key for walking instead of running
+        // Hold left shift key for moving with walking speed
         if (Input.GetKey(KeyCode.LeftShift))
         {
-            Walk();
+            ScaleMovingSpeed(walkSpeedScale);
         }
+
+        ControlAnimations();
 
         // Move the character
         Vector3 moveDirection = transform.forward * m_vInput + transform.right * m_hInput;
         characterController.SimpleMove(moveDirection * runSpeed);
     }
 
-    private void Walk()
+    private void ScaleMovingSpeed(float speedScale)
     {
-        m_vInput = Mathf.Clamp(m_vInput, -walkSpeedScale, walkSpeedScale);
-        m_hInput = Mathf.Clamp(m_hInput, -walkSpeedScale, walkSpeedScale);
+        m_vInput = Mathf.Clamp(m_vInput, -speedScale, speedScale);
+        m_hInput = Mathf.Clamp(m_hInput, -speedScale, speedScale);
     }
 
     private void ControlAnimations()
     {
-        animator.SetBool(Animator.StringToHash("isWalking_b"), IsWalking);
+        animator.SetBool(Animator.StringToHash("isMoving_b"), IsMoving);
         animator.SetFloat(Animator.StringToHash("vSpeedNormalized_f"), m_vInput);
         animator.SetFloat(Animator.StringToHash("hSpeedNormalized_f"), m_hInput);
     }
 
-    public bool IsWalking
+    public bool IsMoving
     {
         get
         {

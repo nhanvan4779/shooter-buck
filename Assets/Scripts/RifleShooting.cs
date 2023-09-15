@@ -6,7 +6,7 @@ public class RifleShooting : MonoBehaviour
 {
     [SerializeField] private Animator animator;
 
-    [SerializeField] private float shootInterval = 0.25f;
+    [SerializeField] private float shootInterval = 0.2f;
 
     [SerializeField] private float shootingRange = 50f;
 
@@ -20,6 +20,10 @@ public class RifleShooting : MonoBehaviour
 
     [SerializeField] private LayerMask shootableLayer;
 
+    [SerializeField] private GameObject weaponHolder;
+
+    private GunAmmo m_gunAmmo;
+
     private WaitForSeconds shotDuration = new WaitForSeconds(0.05f);
 
     private float m_nextShootTime;
@@ -27,6 +31,11 @@ public class RifleShooting : MonoBehaviour
     private Coroutine disableShootingState;
 
     private WaitForSeconds shootingStateDuration = new WaitForSeconds(1f);
+
+    private void Start()
+    {
+        m_gunAmmo = weaponHolder.GetComponentInChildren<GunAmmo>();
+    }
 
     private void Update()
     {
@@ -62,7 +71,16 @@ public class RifleShooting : MonoBehaviour
             bulletTrail.SetPosition(1, rayOrigin + aimingCamera.transform.forward * shootingRange);
         }
 
-        StartCoroutine(ShotEffect());
+        if (m_gunAmmo.CurrentAmmo > 0)
+        {
+            m_gunAmmo.CurrentAmmo--;
+            StartCoroutine(ShotEffect());
+        }
+        else
+        {
+            Debug.Log("Out of ammo!");
+            OutOfAmmoShotEffect();
+        }
     }
 
     private IEnumerator DisableShootingState()
@@ -88,5 +106,10 @@ public class RifleShooting : MonoBehaviour
         bulletTrail.enabled = true;
         yield return shotDuration;
         bulletTrail.enabled = false;
+    }
+
+    private void OutOfAmmoShotEffect()
+    {
+        animator.SetTrigger(Animator.StringToHash("rifleShoot_t"));
     }
 }

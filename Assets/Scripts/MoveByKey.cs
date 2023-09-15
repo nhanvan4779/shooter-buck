@@ -40,25 +40,12 @@ public class MoveByKey : MonoBehaviour
         m_hInput = Mathf.Clamp(m_hInput, -speedScale, speedScale);
     }
 
+    public bool IsMoving => Mathf.Abs(m_vInput) + Mathf.Abs(m_hInput) > 0;
+
     private void ControlAnimations()
     {
         animator.SetBool(Animator.StringToHash("isMoving_b"), IsMoving);
         animator.SetFloat(Animator.StringToHash("vSpeedNormalized_f"), m_vInput);
         animator.SetFloat(Animator.StringToHash("hSpeedNormalized_f"), m_hInput);
-    }
-
-    public bool IsMoving
-    {
-        get
-        {
-            if (Mathf.Abs(m_vInput) + Mathf.Abs(m_hInput) > 0)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
     }
 }

@@ -26,13 +26,8 @@ public class GameUIHandler : MonoBehaviour
         m_gunAmmo.OnAmmoChanged.RemoveListener(UpdateAmmo);
     }
 
-    private void Start()
+    private void UpdateAmmo()
     {
-        UpdateAmmo();
-    }
-
-    public void UpdateAmmo()
-    {
-        ammoText.text = $"{m_gunAmmo.CurrentAmmo}/{m_gunAmmo.MaxAmmo}";
+        ammoText.text = $"{m_gunAmmo.CurrentAmmo}/{m_gunAmmo.AmmoInStock}";
     }
 }

@@ -5,7 +5,9 @@ using UnityEngine.Events;
 
 public class GunAmmo : MonoBehaviour
 {
-    [SerializeField] private int maxAmmo;
+    [SerializeField] private int ammoInStock;
+
+    [SerializeField] private int ammoPerMag;
 
     public UnityEvent OnAmmoChanged;
 
@@ -13,7 +15,7 @@ public class GunAmmo : MonoBehaviour
 
     private void Start()
     {
-        _currentAmmo = maxAmmo;
+        CurrentAmmo = ammoPerMag;
     }
 
     public int CurrentAmmo
@@ -34,5 +36,26 @@ public class GunAmmo : MonoBehaviour
         }
     }
 
-    public int MaxAmmo => maxAmmo;
+    public int AmmoInStock => ammoInStock;
+
+    public bool IsMagFull => _currentAmmo == ammoPerMag;
+
+    public bool IsOutOfStockAmmo => ammoInStock == 0;
+
+    public void Reload()
+    {
+        int reloadAmount = ammoPerMag - _currentAmmo;
+
+        if (ammoInStock >= reloadAmount)
+        {
+            ammoInStock -= reloadAmount;
+            CurrentAmmo = ammoPerMag;
+        }
+        else
+        {
+            reloadAmount = ammoInStock;
+            ammoInStock = 0;
+            CurrentAmmo += reloadAmount;
+        }
+    }
 }

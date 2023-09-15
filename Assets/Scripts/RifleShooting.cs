@@ -28,9 +28,9 @@ public class RifleShooting : MonoBehaviour
 
     private float m_nextShootTime;
 
-    private Coroutine disableShootingState;
+    private Coroutine disableCombatState;
 
-    private WaitForSeconds shootingStateDuration = new WaitForSeconds(1f);
+    private WaitForSeconds combatStateDuration = new WaitForSeconds(1f);
 
     private void Start()
     {
@@ -45,7 +45,23 @@ public class RifleShooting : MonoBehaviour
 
             Shoot();
 
-            EnableShootingStateMomentarily();
+            EnableCombatStateMomentarily();
+        }
+        else if (Input.GetButtonDown("Reload"))
+        {
+            if (m_gunAmmo.IsMagFull)
+            {
+                Debug.Log("The mag is full!");
+                return;
+            }
+
+            if (m_gunAmmo.IsOutOfStockAmmo)
+            {
+                Debug.Log("Out of ammo in stock!");
+                return;
+            }
+
+            animator.SetTrigger(Animator.StringToHash("reload_t"));
         }
     }
 
@@ -83,20 +99,26 @@ public class RifleShooting : MonoBehaviour
         }
     }
 
-    private IEnumerator DisableShootingState()
+    // Reload method is called by reload animation events
+    private void Reload()
     {
-        yield return shootingStateDuration;
-        animator.SetBool(Animator.StringToHash("isShooting_b"), false);
+        m_gunAmmo.Reload();
     }
 
-    private void EnableShootingStateMomentarily()
+    private IEnumerator DisableCombatState()
     {
-        if (disableShootingState != null)
+        yield return combatStateDuration;
+        animator.SetBool(Animator.StringToHash("isCombat_b"), false);
+    }
+
+    private void EnableCombatStateMomentarily()
+    {
+        if (disableCombatState != null)
         {
-            StopCoroutine(disableShootingState);
+            StopCoroutine(disableCombatState);
         }
-        animator.SetBool(Animator.StringToHash("isShooting_b"), true);
-        disableShootingState = StartCoroutine(DisableShootingState());
+        animator.SetBool(Animator.StringToHash("isCombat_b"), true);
+        disableCombatState = StartCoroutine(DisableCombatState());
     }
 
     private IEnumerator ShotEffect()

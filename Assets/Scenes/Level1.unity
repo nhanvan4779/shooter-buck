@@ -771,10 +771,6 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 1735109918}
-    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 36bf0c39b5f7b6240bf0b52746b5ec00,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 886115140}
     - targetCorrespondingSourceObject: {fileID: 1852576806548013000, guid: 36bf0c39b5f7b6240bf0b52746b5ec00,
         type: 3}
       insertIndex: -1
@@ -792,6 +788,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 898697327}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 36bf0c39b5f7b6240bf0b52746b5ec00,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 898697328}
   m_SourcePrefab: {fileID: 100100000, guid: 36bf0c39b5f7b6240bf0b52746b5ec00, type: 3}
 --- !u!1 &750823736
 GameObject:
@@ -877,61 +877,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   aimingCamera: {fileID: 1163865510}
   rayLength: 50
---- !u!1 &886115139
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 886115140}
-  - component: {fileID: 886115141}
-  m_Layer: 6
-  m_Name: RifleShooting
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &886115140
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 886115139}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 898697324}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &886115141
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 886115139}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 10c68325cb6a1834f92193e994b15a5e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animator: {fileID: 898697323}
-  shootInterval: 0.2
-  shootingRange: 50
-  rifleDamage: 10
-  aimingCamera: {fileID: 1163865510}
-  bulletTrail: {fileID: 1234667457}
-  gunBarrel: {fileID: 1721031324}
-  shootableLayer:
-    serializedVersion: 2
-    m_Bits: 51
-  weaponHolder: {fileID: 1726373352}
 --- !u!1 &898697322 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 36bf0c39b5f7b6240bf0b52746b5ec00,
@@ -1008,6 +953,29 @@ MonoBehaviour:
   cameraHolder: {fileID: 1735109918}
   maxPitchAngle: 75
   minPitchAngle: -75
+--- !u!114 &898697328
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 898697322}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10c68325cb6a1834f92193e994b15a5e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 898697323}
+  shootInterval: 0.2
+  shootingRange: 50
+  rifleDamage: 10
+  aimingCamera: {fileID: 1163865510}
+  bulletTrail: {fileID: 1234667457}
+  gunBarrel: {fileID: 1721031324}
+  shootableLayer:
+    serializedVersion: 2
+    m_Bits: 51
+  weaponHolder: {fileID: 1726373352}
 --- !u!1 &1055391606
 GameObject:
   m_ObjectHideFlags: 0
@@ -1386,7 +1354,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f3a7decb28591246b893442a80af1e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxAmmo: 30
+  ammoInStock: 120
+  ammoPerMag: 30
   OnAmmoChanged:
     m_PersistentCalls:
       m_Calls: []

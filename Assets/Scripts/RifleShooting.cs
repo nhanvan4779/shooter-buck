@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class RifleShooting : MonoBehaviour
 {
@@ -22,6 +23,8 @@ public class RifleShooting : MonoBehaviour
 
     [SerializeField] private GameObject weaponHolder;
 
+    [SerializeField] private UnityEvent OnShoot;
+
     private GunAmmo m_gunAmmo;
 
     private WaitForSeconds shotDuration = new WaitForSeconds(0.05f);
@@ -36,6 +39,8 @@ public class RifleShooting : MonoBehaviour
 
     private void Start()
     {
+        bulletTrail.enabled = false;
+
         m_gunAmmo = weaponHolder.GetComponentInChildren<GunAmmo>();
     }
 
@@ -140,6 +145,8 @@ public class RifleShooting : MonoBehaviour
     private IEnumerator ShotEffect()
     {
         animator.SetTrigger(Animator.StringToHash("rifleShoot_t"));
+
+        OnShoot.Invoke();
 
         bulletTrail.enabled = true;
         yield return shotDuration;

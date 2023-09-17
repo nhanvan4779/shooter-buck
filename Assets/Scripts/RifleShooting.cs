@@ -32,6 +32,8 @@ public class RifleShooting : MonoBehaviour
 
     private WaitForSeconds combatStateDuration = new WaitForSeconds(1f);
 
+    private bool m_canReload = true;
+
     private void Start()
     {
         m_gunAmmo = weaponHolder.GetComponentInChildren<GunAmmo>();
@@ -45,9 +47,11 @@ public class RifleShooting : MonoBehaviour
 
             Shoot();
 
+            EnableReloading();
+
             EnableCombatStateMomentarily();
         }
-        else if (Input.GetButtonDown("Reload"))
+        else if (Input.GetButtonDown("Reload") && m_canReload)
         {
             if (m_gunAmmo.IsMagFull)
             {
@@ -62,6 +66,8 @@ public class RifleShooting : MonoBehaviour
             }
 
             animator.SetTrigger(Animator.StringToHash("reload_t"));
+
+            DisableReloading();
         }
     }
 
@@ -103,6 +109,16 @@ public class RifleShooting : MonoBehaviour
     private void Reload()
     {
         m_gunAmmo.Reload();
+    }
+
+    private void EnableReloading()
+    {
+        m_canReload = true;
+    }
+
+    private void DisableReloading()
+    {
+        m_canReload = false;
     }
 
     private IEnumerator DisableCombatState()

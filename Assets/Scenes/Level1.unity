@@ -1492,6 +1492,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shootingSound: {fileID: 8300000, guid: 9423065c1c0d64ea3a434687a804188b, type: 3}
+  outOfAmmoShootingSound: {fileID: 8300000, guid: e7632c6401c09437e83de45d33c5858e,
+    type: 3}
+  reloadingSound: {fileID: 8300000, guid: cef0fa03af5b747f0abe82cde0b2bccc, type: 3}
 --- !u!1 &1462895100
 GameObject:
   m_ObjectHideFlags: 0

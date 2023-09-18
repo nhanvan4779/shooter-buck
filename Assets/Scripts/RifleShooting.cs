@@ -39,6 +39,8 @@ public class RifleShooting : MonoBehaviour
 
     private bool m_canReload = true;
 
+    private bool m_canShoot = true;
+
     private void Start()
     {
         bulletTrail.enabled = false;
@@ -50,7 +52,7 @@ public class RifleShooting : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetButton("Fire1") && Time.time > m_nextShootTime)
+        if (Input.GetButton("Fire1") && Time.time > m_nextShootTime && m_canShoot)
         {
             m_nextShootTime = Time.time + shootInterval;
 
@@ -114,10 +116,18 @@ public class RifleShooting : MonoBehaviour
         }
     }
 
-    // Reload method is called by reload animation events
+    // This method is called by reloading animation events
     private void Reload()
     {
         m_gunAmmo.Reload();
+
+        EnableShooting();
+    }
+
+    // This method is called by reloading animation events
+    private void PlayReloadingSFX()
+    {
+        m_gunSoundEffects.PlayReloadingSFX();
     }
 
     private void EnableReloading()
@@ -162,5 +172,17 @@ public class RifleShooting : MonoBehaviour
     private void OutOfAmmoShotEffect()
     {
         animator.SetTrigger(Animator.StringToHash("rifleShoot_t"));
+
+        m_gunSoundEffects.PlayOutOfAmmoShootSFX();
+
+        // Disable shooting for a short amount of time when out of ammo to prevent spamming
+        m_canShoot = false;
+        CancelInvoke();
+        Invoke(nameof(EnableShooting), 2f);
+    }
+
+    private void EnableShooting()
+    {
+        m_canShoot = true;
     }
 }

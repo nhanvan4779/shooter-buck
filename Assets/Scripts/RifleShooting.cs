@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -178,7 +177,7 @@ public class RifleShooting : MonoBehaviour
         // Disable shooting for a short amount of time when out of ammo to prevent spamming
         m_canShoot = false;
         CancelInvoke();
-        Invoke(nameof(EnableShooting), 2f);
+        Invoke(nameof(EnableShooting), 0.5f);
     }
 
     private void EnableShooting()

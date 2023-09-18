@@ -7,7 +7,7 @@ public class RifleShooting : MonoBehaviour
 {
     [SerializeField] private Animator animator;
 
-    [SerializeField] private float shootInterval = 0.2f;
+    [SerializeField] private float shootInterval = 0.1f;
 
     [SerializeField] private float shootingRange = 50f;
 
@@ -27,6 +27,8 @@ public class RifleShooting : MonoBehaviour
 
     private GunAmmo m_gunAmmo;
 
+    private GunSoundEffects m_gunSoundEffects;
+
     private WaitForSeconds shotDuration = new WaitForSeconds(0.05f);
 
     private float m_nextShootTime;
@@ -42,6 +44,8 @@ public class RifleShooting : MonoBehaviour
         bulletTrail.enabled = false;
 
         m_gunAmmo = weaponHolder.GetComponentInChildren<GunAmmo>();
+
+        m_gunSoundEffects = weaponHolder.GetComponentInChildren<GunSoundEffects>();
     }
 
     private void Update()
@@ -145,6 +149,8 @@ public class RifleShooting : MonoBehaviour
     private IEnumerator ShotEffect()
     {
         animator.SetTrigger(Animator.StringToHash("rifleShoot_t"));
+
+        m_gunSoundEffects.PlayShootSFX();
 
         OnShoot.Invoke();
 

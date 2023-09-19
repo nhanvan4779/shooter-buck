@@ -10,7 +10,8 @@ public class ShootingTarget : MonoBehaviour, IShootable
 
         if (health <= 0)
         {
-            gameObject.SetActive(false);
+            // Set the parent game object inactive
+            transform.parent.gameObject.SetActive(false);
         }
         else
         {

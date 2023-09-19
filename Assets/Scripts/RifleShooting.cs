@@ -89,11 +89,24 @@ public class RifleShooting : MonoBehaviour
         bulletTrail.SetPosition(0, gunBarrel.position);
         if (Physics.Raycast(rayOrigin, aimingCamera.transform.forward, out hit, shootingRange, shootableLayer))
         {
-            IShootable shootableObject;
+            IShootable shootableObject = hit.collider.GetComponentInChildren<IShootable>();
+            HitSurface hitSurface = hit.collider.GetComponentInChildren<HitSurface>();
 
-            if (hit.collider.TryGetComponent<IShootable>(out shootableObject))
+            if (shootableObject != null)
             {
                 shootableObject.TakeDamage(rifleDamage);
+            }
+
+            if (hitSurface != null)
+            {
+                hitSurface.PlayBulletImpactSound(hit.point);
+
+                Quaternion bulletImpactRotation = Quaternion.LookRotation(hit.normal);
+                Instantiate(hitSurface.BulletImpactPrefab, hit.point, bulletImpactRotation);
+            }
+            else
+            {
+                Debug.LogWarning("Hit Surface component is required for hittable surfaces!");
             }
 
             bulletTrail.SetPosition(1, hit.point);

@@ -83,41 +83,46 @@ public class RifleShooting : MonoBehaviour
 
     private void Shoot()
     {
-        Vector3 rayOrigin = aimingCamera.ScreenToWorldPoint(new Vector3(0.5f, 0.5f, 0f));
-        RaycastHit hit;
-
-        bulletTrail.SetPosition(0, gunBarrel.position);
-        if (Physics.Raycast(rayOrigin, aimingCamera.transform.forward, out hit, shootingRange, shootableLayer))
+        if (m_gunAmmo.CurrentAmmo > 0)
         {
-            IShootable shootableObject = hit.collider.GetComponentInChildren<IShootable>();
-            HitSurface hitSurface = hit.collider.GetComponentInChildren<HitSurface>();
+            Vector3 rayOrigin = aimingCamera.ScreenToWorldPoint(new Vector3(0.5f, 0.5f, 0f));
+            RaycastHit hit;
 
-            if (shootableObject != null)
+            bulletTrail.SetPosition(0, gunBarrel.position);
+            if (Physics.Raycast(rayOrigin, aimingCamera.transform.forward, out hit, shootingRange, shootableLayer))
             {
-                shootableObject.TakeDamage(rifleDamage);
-            }
+                IShootable shootableObject = hit.collider.GetComponentInChildren<IShootable>();
+                HitSurface hitSurface = hit.collider.GetComponentInChildren<HitSurface>();
 
-            if (hitSurface != null)
-            {
-                hitSurface.PlayBulletImpactSound(hit.point);
+                if (shootableObject != null)
+                {
+                    shootableObject.TakeDamage(rifleDamage);
+                }
 
-                Quaternion bulletImpactRotation = Quaternion.LookRotation(hit.normal);
-                Instantiate(hitSurface.BulletImpactPrefab, hit.point, bulletImpactRotation);
+                if (hitSurface != null)
+                {
+                    hitSurface.PlayBulletImpactSound(hit.point);
+
+                    Quaternion bulletImpactRotation = Quaternion.LookRotation(hit.normal);
+
+                    // Spawn bullet impact visual effect and get Bullet Impact component
+                    BulletImpact bulletImpact = Instantiate(hitSurface.BulletImpactPrefab, hit.point, bulletImpactRotation).GetComponent<BulletImpact>();
+
+                    // Set bullet impact's parent to the hit game object to make them disappear together
+                    bulletImpact.SetBulletHoleParent(hit.transform);
+                }
+                else
+                {
+                    Debug.LogWarning("Hit Surface component is required for hittable surfaces!");
+                }
+
+                bulletTrail.SetPosition(1, hit.point);
             }
             else
             {
-                Debug.LogWarning("Hit Surface component is required for hittable surfaces!");
+                bulletTrail.SetPosition(1, rayOrigin + aimingCamera.transform.forward * shootingRange);
             }
 
-            bulletTrail.SetPosition(1, hit.point);
-        }
-        else
-        {
-            bulletTrail.SetPosition(1, rayOrigin + aimingCamera.transform.forward * shootingRange);
-        }
-
-        if (m_gunAmmo.CurrentAmmo > 0)
-        {
             m_gunAmmo.CurrentAmmo--;
             StartCoroutine(ShotEffect());
         }

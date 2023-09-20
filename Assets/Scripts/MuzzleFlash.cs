@@ -13,7 +13,7 @@ public class MuzzleFlash : MonoBehaviour
 
     public void ShowMuzzleFlash()
     {
-        float angle = Random.Range(0, 360f);
+        float angle = Random.Range(0f, 360f);
         muzzleFlash.transform.localEulerAngles = new Vector3(0f, 0f, angle);
         muzzleFlash.SetActive(true);
 

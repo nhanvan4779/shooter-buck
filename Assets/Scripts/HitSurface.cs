@@ -31,7 +31,8 @@ public class HitSurface : MonoBehaviour
     public void PlayBulletImpactSound(Vector3 impactPosition)
     {
         bulletImpactAudioSource.transform.position = impactPosition;
-        bulletImpactAudioSource.PlayOneShot(_bulletImpactSound);
+        bulletImpactAudioSource.clip = _bulletImpactSound;
+        bulletImpactAudioSource.Play();
     }
 }
 

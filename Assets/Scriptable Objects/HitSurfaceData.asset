@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ed3e629df6ae0f45bac1c88a5f5e3ce, type: 3}
+  m_Name: HitSurfaceData
+  m_EditorClassIdentifier: 
+  _list:
+  - _surfaceType: 0
+    _bulletImpactPrefab: {fileID: 100002, guid: cfcd690db7ce26548af4f6d7bb536b02,
+      type: 3}
+    _bulletImpactSound: {fileID: 8300000, guid: 65201ddabb4144f6a8fb9480120b7656,
+      type: 3}
+  - _surfaceType: 1
+    _bulletImpactPrefab: {fileID: 100002, guid: 2f9348d6583cde14eb0d82bb9732647e,
+      type: 3}
+    _bulletImpactSound: {fileID: 8300000, guid: 65201ddabb4144f6a8fb9480120b7656,
+      type: 3}
+  - _surfaceType: 2
+    _bulletImpactPrefab: {fileID: 100002, guid: 627bfa08ce624ab40ab2fea71785b5f0,
+      type: 3}
+    _bulletImpactSound: {fileID: 8300000, guid: 65201ddabb4144f6a8fb9480120b7656,
+      type: 3}
+  - _surfaceType: 3
+    _bulletImpactPrefab: {fileID: 100002, guid: 0b24f31f464fa614a84acdeac974ed6b,
+      type: 3}
+    _bulletImpactSound: {fileID: 8300000, guid: 65201ddabb4144f6a8fb9480120b7656,
+      type: 3}
+  - _surfaceType: 4
+    _bulletImpactPrefab: {fileID: 100002, guid: 957385c45b877e645a128e11a3efb2f9,
+      type: 3}
+    _bulletImpactSound: {fileID: 8300000, guid: 65201ddabb4144f6a8fb9480120b7656,
+      type: 3}
+  - _surfaceType: 5
+    _bulletImpactPrefab: {fileID: 100002, guid: 9bdf482976052a647946e8159033a295,
+      type: 3}
+    _bulletImpactSound: {fileID: 8300000, guid: 65201ddabb4144f6a8fb9480120b7656,
+      type: 3}

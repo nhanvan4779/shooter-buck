@@ -43,3 +43,8 @@ MonoBehaviour:
       type: 3}
     _bulletImpactSound: {fileID: 8300000, guid: 65201ddabb4144f6a8fb9480120b7656,
       type: 3}
+  - _surfaceType: 6
+    _bulletImpactPrefab: {fileID: 100002, guid: d39ab699aa314a147969fd483aa55205,
+      type: 3}
+    _bulletImpactSound: {fileID: 8300000, guid: 65201ddabb4144f6a8fb9480120b7656,
+      type: 3}

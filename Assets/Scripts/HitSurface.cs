@@ -43,5 +43,6 @@ public enum SurfaceType
     Metal,
     Sand,
     SoftBody,
-    Wood
+    Wood,
+    Tree
 }

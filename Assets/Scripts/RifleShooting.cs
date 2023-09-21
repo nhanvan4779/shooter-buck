@@ -91,7 +91,7 @@ public class RifleShooting : MonoBehaviour
             bulletTrail.SetPosition(0, gunBarrel.position);
             if (Physics.Raycast(rayOrigin, aimingCamera.transform.forward, out hit, shootingRange, shootableLayer))
             {
-                IShootable shootableObject = hit.collider.GetComponentInChildren<IShootable>();
+                IShootable shootableObject = hit.collider.GetComponent<IShootable>();
                 HitSurface hitSurface = hit.collider.GetComponentInChildren<HitSurface>();
 
                 if (shootableObject != null)

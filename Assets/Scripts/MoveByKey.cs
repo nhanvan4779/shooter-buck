@@ -14,6 +14,10 @@ public class MoveByKey : MonoBehaviour
 
     private float m_hInput;
 
+    private float _gravityValue = -9.81f;
+
+    private float _playerMass = 60f;
+
     private void Update()
     {
         m_vInput = Input.GetAxis("Vertical");
@@ -28,8 +32,15 @@ public class MoveByKey : MonoBehaviour
         ControlAnimations();
 
         // Move the character
-        Vector3 moveDirection = transform.forward * m_vInput + transform.right * m_hInput;
-        characterController.SimpleMove(moveDirection * runSpeed);
+        Vector3 playerVelocity = (transform.forward * m_vInput + transform.right * m_hInput) * runSpeed;
+        playerVelocity.y += _playerMass * _gravityValue * Time.deltaTime;
+
+        if (characterController.isGrounded & playerVelocity.y < 0f)
+        {
+            playerVelocity.y = 0f;
+        }
+
+        characterController.Move(playerVelocity * Time.deltaTime);
     }
 
     private void ScaleMovingSpeed(float speedScale)

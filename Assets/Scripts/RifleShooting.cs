@@ -22,6 +22,8 @@ public class RifleShooting : MonoBehaviour
 
     [SerializeField] private GameObject weaponHolder;
 
+    [SerializeField] private float hitForce = 10f;
+
     [SerializeField] private UnityEvent OnShoot;
 
     private GunAmmo m_gunAmmo;
@@ -91,12 +93,12 @@ public class RifleShooting : MonoBehaviour
             bulletTrail.SetPosition(0, gunBarrel.position);
             if (Physics.Raycast(rayOrigin, aimingCamera.transform.forward, out hit, shootingRange, shootableLayer))
             {
-                IShootable shootableObject = hit.collider.GetComponent<IShootable>();
+                Enemy enemy = hit.collider.GetComponent<Enemy>();
                 HitSurface hitSurface = hit.collider.GetComponentInChildren<HitSurface>();
 
-                if (shootableObject != null)
+                if (enemy != null)
                 {
-                    shootableObject.TakeDamage(rifleDamage);
+
                 }
 
                 if (hitSurface != null)

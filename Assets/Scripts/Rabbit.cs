@@ -1,65 +1,60 @@
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Rabbit : Enemy
 {
     [SerializeField] private Animator animator;
+    [SerializeField] private NavMeshAgent agent;
+    [SerializeField] private float attackRange = 1.2f;
+    [SerializeField] private float attackCooldown = 2.4f;
 
-    [SerializeField] private float reachRadius = 0.25f;
-
-    private GameObject _player;
-
-    private bool _isDead;
-
-    private void Awake()
-    {
-        _player = GameObject.FindGameObjectWithTag("Player");
-    }
-
-    private void Start()
-    {
-        _isDead = false;
-    }
+    private bool _isPlayerInSight;
+    private float _nextAttack;
 
     private void Update()
     {
-        ChasePlayer();
-    }
+        _isPlayerInSight = DetectPlayerInSight();
 
-    public override void TakeDamage(int damage)
-    {
-        health -= damage;
+        animator.SetBool(Animator.StringToHash("isPlayerInSight_b"), _isPlayerInSight);
 
-        if (health <= 0)
+        if (_isPlayerInSight)
         {
-            _isDead = true;
-            animator.SetTrigger(Animator.StringToHash("getHit_t"));
-            animator.SetBool(Animator.StringToHash("isDead_b"), true);
+            Combat();
         }
         else
         {
-            animator.SetTrigger(Animator.StringToHash("getHit_t"));
+            Patrol();
         }
     }
 
-    private void ChasePlayer()
+    protected override void Combat()
     {
-        float distance = Vector3.Distance(transform.position, _player.transform.position);
-
-        if (distance > reachRadius && !_isDead)
+        if (DistanceToPlayer > attackRange)
         {
+            animator.SetBool(Animator.StringToHash("isInAttackRange_b"), false);
+
             agent.isStopped = false;
             agent.SetDestination(_player.transform.position);
-            animator.SetBool("isMoving_b", true);
         }
         else
         {
+            animator.SetBool(Animator.StringToHash("isInAttackRange_b"), false);
+
             agent.isStopped = true;
-            animator.SetBool("isMoving_b", false);
+            agent.velocity = Vector3.zero;
+
+            Attack();
         }
     }
 
-    private void OnDeath()
+    private void Attack()
     {
-        gameObject.SetActive(false);
+        transform.LookAt(_player.transform);
+
+        if (Time.time > _nextAttack)
+        {
+            _nextAttack = Time.time + attackCooldown;
+            animator.SetTrigger(Animator.StringToHash("attackTrigger"));
+        }
     }
 }

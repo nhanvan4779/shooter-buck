@@ -1,23 +1,54 @@
 using UnityEngine;
-using UnityEngine.AI;
 
-public class Enemy : MonoBehaviour, IShootable
+public class Enemy : MonoBehaviour
 {
-    [SerializeField] protected int health;
+    [SerializeField] protected float detectRange = 10f;
+    [SerializeField] protected float detectAngle = 60f;
 
-    [SerializeField] protected NavMeshAgent agent;
+    protected GameObject _player;
 
-    public virtual void TakeDamage(int damage)
+    private void Awake()
     {
-        health -= damage;
+        _player = GameObject.FindGameObjectWithTag("Player");
+    }
 
-        if (health <= 0)
+    protected bool DetectPlayerInSight()
+    {
+        if (DistanceToPlayer < detectRange)
         {
-            gameObject.SetActive(false);
+            Vector3 pointToPlayer = (_player.transform.position - transform.position).normalized;
+            float angleToLook = Vector3.Angle(transform.forward, pointToPlayer);
+
+            if (angleToLook < detectAngle)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
         else
         {
-            Debug.Log("The shooting target got shot!");
+            return false;
         }
+    }
+
+    public float DistanceToPlayer
+    {
+        get
+        {
+            return Vector3.Distance(transform.position, _player.transform.position);
+        }
+    }
+
+    protected virtual void Patrol()
+    {
+
+    }
+
+    protected virtual void Combat()
+    {
+
     }
 }

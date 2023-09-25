@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class RotateByMouse : MonoBehaviour
+public class CameraController : MonoBehaviour
 {
     [SerializeField] private float angleOverDistance = 2.5f;
 
@@ -33,5 +33,10 @@ public class RotateByMouse : MonoBehaviour
         float deltaPitch = -mouseY * angleOverDistance;
         m_pitch = Mathf.Clamp(m_pitch + deltaPitch, minPitchAngle, maxPitchAngle);
         cameraHolder.localEulerAngles = new Vector3(m_pitch, 0, 0);
+    }
+
+    public void ShakeCameraUp()
+    {
+        Debug.Log("Shake Camera Up has not yet been implemented!");
     }
 }

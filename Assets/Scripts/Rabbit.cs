@@ -197,4 +197,37 @@ public class Rabbit : Enemy
     {
         OnDeath.Invoke();
     }
+
+    [SerializeField] private float sureHitRange = 2f;
+    [SerializeField] private float sureMissRange = 4f;
+
+    protected override void DealDamage()
+    {
+        if (DistanceToPlayer >= sureMissRange)
+        {
+            MissAttack();
+        }
+        else if (DistanceToPlayer > sureHitRange)
+        {
+            float hitRate = (sureMissRange - DistanceToPlayer) / (sureMissRange - sureHitRange);
+
+            if (RandomRate(hitRate))
+            {
+                base.DealDamage();
+            }
+            else
+            {
+                MissAttack();
+            }
+        }
+        else
+        {
+            base.DealDamage();
+        }
+    }
+
+    private bool RandomRate(float successRate)
+    {
+        return Random.Range(0f, 1f) <= successRate;
+    }
 }

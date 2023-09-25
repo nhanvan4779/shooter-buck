@@ -7,6 +7,7 @@ public class Player : MonoBehaviour
     [SerializeField] private int maxHealth = 100;
     [SerializeField] private UnityEvent OnDeath;
     public UnityEvent<int> OnHealthChange;
+    [SerializeField] private UnityEvent OnEvade;
 
     public UnityEvent OnTakeDamage;
 
@@ -46,5 +47,11 @@ public class Player : MonoBehaviour
             OnDeath.Invoke();
             Debug.Log("Game over!");
         }
+    }
+
+    public void OnEvadeInvoke()
+    {
+        OnEvade.Invoke();
+        Debug.Log("Evade the attack!");
     }
 }

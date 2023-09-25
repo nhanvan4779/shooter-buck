@@ -91,7 +91,7 @@ public class Enemy : MonoBehaviour
 
     }
 
-    protected void DealDamage()
+    protected virtual void DealDamage()
     {
         _player.TakeDamage(attackDamage);
     }
@@ -99,5 +99,10 @@ public class Enemy : MonoBehaviour
     public virtual void GetShot(int gunDamage, float hitForce)
     {
 
+    }
+
+    protected void MissAttack()
+    {
+        _player.OnEvadeInvoke();
     }
 }

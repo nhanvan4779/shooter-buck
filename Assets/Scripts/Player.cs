@@ -54,4 +54,9 @@ public class Player : MonoBehaviour
         OnEvade.Invoke();
         Debug.Log("Evade the attack!");
     }
+
+    public void Die()
+    {
+        animator.SetTrigger("Die");
+    }
 }

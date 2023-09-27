@@ -30,9 +30,12 @@ public class HitSurface : MonoBehaviour
 
     public void PlayBulletImpactSound(Vector3 impactPosition)
     {
-        bulletImpactAudioSource.transform.position = impactPosition;
-        bulletImpactAudioSource.clip = _bulletImpactSound;
-        bulletImpactAudioSource.Play();
+        if (bulletImpactAudioSource != null)
+        {
+            bulletImpactAudioSource.transform.position = impactPosition;
+            bulletImpactAudioSource.clip = _bulletImpactSound;
+            bulletImpactAudioSource.Play();
+        }
     }
 }
 

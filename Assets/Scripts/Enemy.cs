@@ -36,8 +36,14 @@ public class Enemy : MonoBehaviour
     private void Awake()
     {
         _player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
-        Health = maxHealth;
 
+        Init();
+    }
+
+    public void Init()
+    {
+        Health = maxHealth;
+        healthBar.gameObject.SetActive(false);
     }
 
     private void OnEnable()
@@ -122,9 +128,10 @@ public class Enemy : MonoBehaviour
         _player.OnEvadeInvoke();
     }
 
-    protected void StopAttackPlayer()
+    protected virtual void StopAttackPlayer()
     {
         _isPlayerDead = true;
+
         Debug.Log("Stop attack!");
     }
 }

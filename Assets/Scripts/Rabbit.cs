@@ -129,6 +129,11 @@ public class Rabbit : Enemy
         }
     }
 
+    protected override void Patrol()
+    {
+        animator.SetBool("_isPlayerDead", true);
+    }
+
     private void Attack()
     {
         transform.LookAt(_player.transform);
@@ -240,5 +245,11 @@ public class Rabbit : Enemy
     private bool RandomRate(float successRate)
     {
         return Random.Range(0f, 1f) <= successRate;
+    }
+
+    protected override void StopAttackPlayer()
+    {
+        base.StopAttackPlayer();
+        agent.ResetPath();
     }
 }

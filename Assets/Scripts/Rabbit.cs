@@ -27,6 +27,13 @@ public class Rabbit : Enemy
         _isDead = false;
         _getDisable = false;
         animator.SetBool(Animator.StringToHash("isDead_b"), false);
+
+        _player.OnDeath.AddListener(StopAttackPlayer);
+    }
+
+    private void OnDisable()
+    {
+        //GameManager.Instance.onGameOverAction -= StopAttackPlayer;
     }
 
     public override void ResetState()
@@ -46,7 +53,7 @@ public class Rabbit : Enemy
 
         animator.SetBool(Animator.StringToHash("isPlayerInSight_b"), _isPlayerInSight);
 
-        if (_isPlayerInSight || _isCombatStateEntered)
+        if ((_isPlayerInSight || _isCombatStateEntered) && !_isPlayerDead)
         {
             Combat();
         }
@@ -64,6 +71,10 @@ public class Rabbit : Enemy
             return;
         }
         else if (_getDisable)
+        {
+            return;
+        }
+        else if (_isPlayerDead)
         {
             return;
         }
@@ -99,8 +110,8 @@ public class Rabbit : Enemy
                 Quaternion forwardRotation = Quaternion.LookRotation(transform.forward);
                 Quaternion pointToPlayerRotation = Quaternion.LookRotation(pointToPlayer);
 
-                transform.rotation = Quaternion.RotateTowards(forwardRotation, pointToPlayerRotation, agent.angularSpeed * Time.deltaTime);
-                _speed = agent.speed / 3;
+                transform.rotation = Quaternion.RotateTowards(forwardRotation, pointToPlayerRotation, agent.angularSpeed);
+                _speed = agent.speed * 2 / 3;
 
                 agent.velocity = pointToPlayer * _speed;
             }

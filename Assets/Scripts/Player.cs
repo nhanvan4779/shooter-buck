@@ -5,7 +5,7 @@ public class Player : MonoBehaviour
 {
     [SerializeField] private Animator animator;
     [SerializeField] private int maxHealth = 100;
-    [SerializeField] private UnityEvent OnDeath;
+    public UnityEvent OnDeath;
     public UnityEvent<int> OnHealthChange;
     [SerializeField] private UnityEvent OnEvade;
 

@@ -14,10 +14,25 @@ public class CameraController : MonoBehaviour
 
     private void Start()
     {
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+        LockHideMouseCursor(true);
 
         m_pitch = cameraHolder.localEulerAngles.x;
+    }
+
+    public void LockHideMouseCursor(bool isTrue)
+    {
+        if (isTrue)
+        {
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
+
+        }
+        else
+        {
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.Confined;
+
+        }
     }
 
     private void Update()

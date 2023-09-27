@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameUIHandler : MonoBehaviour
@@ -18,6 +19,8 @@ public class GameUIHandler : MonoBehaviour
     {
         m_gunAmmo = weaponHolder.GetComponentInChildren<GunAmmo>();
         m_player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+        SetGameOverUIActive(false);
+        SetPauseUIActive(false);
     }
 
     private void OnEnable()
@@ -40,5 +43,29 @@ public class GameUIHandler : MonoBehaviour
     public void UpdateHealth(int value)
     {
         healthBar.value = (float)value / m_player.MaxHealth;
+    }
+
+    public void Restart()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    public void BackToMenu()
+    {
+        SceneManager.LoadScene(0);
+    }
+
+    [SerializeField] private GameObject gameOverGroup;
+
+    public void SetGameOverUIActive(bool active)
+    {
+        gameOverGroup.SetActive(active);
+    }
+
+    [SerializeField] private GameObject pauseGroup;
+
+    public void SetPauseUIActive(bool active)
+    {
+        pauseGroup.SetActive(active);
     }
 }

@@ -40,13 +40,29 @@ public class Enemy : MonoBehaviour
 
     }
 
+    private void OnEnable()
+    {
+
+    }
+
+    private void OnDisable()
+    {
+
+    }
+
     public virtual void ResetState()
     {
         Health = maxHealth;
     }
 
+    [SerializeField] protected bool _isPlayerDead = false;
+
     protected bool DetectPlayerInSight()
     {
+        if (_isPlayerDead)
+        {
+            return false;
+        }
         if (DistanceToPlayer < detectRange)
         {
             if (AngleToLookAtPlayer < detectAngle)
@@ -104,5 +120,11 @@ public class Enemy : MonoBehaviour
     protected void MissAttack()
     {
         _player.OnEvadeInvoke();
+    }
+
+    protected void StopAttackPlayer()
+    {
+        _isPlayerDead = true;
+        Debug.Log("Stop attack!");
     }
 }

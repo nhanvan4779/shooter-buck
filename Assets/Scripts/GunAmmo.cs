@@ -36,6 +36,12 @@ public class GunAmmo : MonoBehaviour
 
     public int AmmoInStock => ammoInStock;
 
+    public void AddAmmoToStock(int amount)
+    {
+        ammoInStock += amount;
+        //OnAmmoChanged.Invoke();
+    }
+
     public bool IsMagFull => _currentAmmo == ammoPerMag;
 
     public bool IsOutOfStockAmmo => ammoInStock == 0;

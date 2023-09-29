@@ -199,6 +199,7 @@ public class Rabbit : Enemy
             _isDead = true;
             agent.velocity = Vector3.zero;
             animator.SetBool(Animator.StringToHash("isDead_b"), true);
+
             Debug.Log("The rabbit gets killed!");
         }
         else
@@ -251,5 +252,14 @@ public class Rabbit : Enemy
     {
         base.StopAttackPlayer();
         agent.ResetPath();
+    }
+
+    [SerializeField] private int killPointMin = 12;
+    [SerializeField] private int killPointMax = 20;
+
+    public void AddScore()
+    {
+        int killPoint = Random.Range(killPointMin, killPointMax + 1);
+        GameManager.Instance.Score += killPoint;
     }
 }

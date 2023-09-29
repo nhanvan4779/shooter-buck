@@ -14,6 +14,11 @@ public class SpawnManager : MonoBehaviour
     public float minSpawnInterval = 1f;
     private float nextSpawn;
 
+    public float spawnPUInterval = 10f;
+    private float nextPUSpawn;
+
+    [SerializeField] private GameObject bulletRechargePrefab;
+
     private void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
@@ -33,6 +38,11 @@ public class SpawnManager : MonoBehaviour
             nextSpawn = Time.time + spawnInterval;
 
             SpawnEnemy();
+        }
+        if (Time.time > nextPUSpawn)
+        {
+            nextPUSpawn = Time.time + spawnPUInterval;
+            SpawnBulletRecharge();
         }
     }
 
@@ -73,5 +83,12 @@ public class SpawnManager : MonoBehaviour
             enemy.Init();
             enemy.gameObject.SetActive(true);
         }
+    }
+
+    private void SpawnBulletRecharge()
+    {
+        Vector3 position = RandomPositionOnNavMesh();
+        GameObject obj = Instantiate(bulletRechargePrefab, position, bulletRechargePrefab.transform.rotation);
+        obj.transform.SetParent(transform);
     }
 }

@@ -21,6 +21,7 @@ public class MoveByKey : MonoBehaviour
 
     [SerializeField] private bool _getDisable = false;
 
+
     private void Update()
     {
         if (_getDisable)

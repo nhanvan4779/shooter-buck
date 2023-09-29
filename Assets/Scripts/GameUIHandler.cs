@@ -11,6 +11,10 @@ public class GameUIHandler : MonoBehaviour
 
     [SerializeField] private Slider healthBar;
 
+    [SerializeField] private TMP_Text scoreText;
+
+    [SerializeField] private TMP_Text highscoreText;
+
     private GunAmmo m_gunAmmo;
 
     private Player m_player;
@@ -67,5 +71,15 @@ public class GameUIHandler : MonoBehaviour
     public void SetPauseUIActive(bool active)
     {
         pauseGroup.SetActive(active);
+    }
+
+    public void UpdateScore(int score)
+    {
+        scoreText.text = $"Score: {score}";
+    }
+
+    public void UpdateHighscore(int score)
+    {
+        highscoreText.text = $"Highscore: {score}";
     }
 }

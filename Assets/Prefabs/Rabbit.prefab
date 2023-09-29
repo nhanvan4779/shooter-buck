@@ -1393,7 +1393,7 @@ MonoBehaviour:
   detectRange: 1000
   detectAngle: 180
   attackDamage: 10
-  maxHealth: 30
+  maxHealth: 20
   OnHealthChange:
     m_PersistentCalls:
       m_Calls:
@@ -1440,6 +1440,8 @@ MonoBehaviour:
         m_CallState: 2
   sureHitRange: 2
   sureMissRange: 4
+  killPointMin: 12
+  killPointMax: 20
 --- !u!54 &2794221510327406181
 Rigidbody:
   m_ObjectHideFlags: 0

@@ -5,39 +5,24 @@ using UnityEngine.Events;
 public class RifleShooting : MonoBehaviour
 {
     [SerializeField] private Animator animator;
-
     [SerializeField] private float shootInterval = 0.1f;
-
     [SerializeField] private float shootingRange = 50f;
-
     [SerializeField] private int rifleDamage = 10;
-
     [SerializeField] private Camera aimingCamera;
-
     [SerializeField] private LineRenderer bulletTrail;
-
     [SerializeField] private Transform gunBarrel;
-
     [SerializeField] private LayerMask shootableLayer;
-
     [SerializeField] private GameObject weaponHolder;
-
+    [SerializeField] private float hitForce = 10f;
     [SerializeField] private UnityEvent OnShoot;
 
     private GunAmmo m_gunAmmo;
-
     private GunSoundEffects m_gunSoundEffects;
-
     private WaitForSeconds shotDuration = new WaitForSeconds(0.05f);
-
     private float m_nextShootTime;
-
     private Coroutine disableCombatState;
-
     private WaitForSeconds combatStateDuration = new WaitForSeconds(1f);
-
     private bool m_canReload = true;
-
     private bool m_canShoot = true;
 
     private void Start()
@@ -91,12 +76,12 @@ public class RifleShooting : MonoBehaviour
             bulletTrail.SetPosition(0, gunBarrel.position);
             if (Physics.Raycast(rayOrigin, aimingCamera.transform.forward, out hit, shootingRange, shootableLayer))
             {
-                IShootable shootableObject = hit.collider.GetComponentInChildren<IShootable>();
+                Enemy enemy = hit.collider.GetComponent<Enemy>();
                 HitSurface hitSurface = hit.collider.GetComponentInChildren<HitSurface>();
 
-                if (shootableObject != null)
+                if (enemy != null)
                 {
-                    shootableObject.TakeDamage(rifleDamage);
+                    enemy.GetShot(rifleDamage, hitForce);
                 }
 
                 if (hitSurface != null)

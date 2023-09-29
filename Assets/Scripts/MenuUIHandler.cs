@@ -10,6 +10,8 @@ public class MenuUIHandler : MonoBehaviour
 
     [SerializeField] private GameObject creditsGroup;
 
+    [SerializeField] private GameObject howToPlayGroup;
+
     private void Awake()
     {
         creditsGroup.SetActive(false);
@@ -37,7 +39,14 @@ public class MenuUIHandler : MonoBehaviour
 
     public void BackToMenu()
     {
+        howToPlayGroup.SetActive(false);
         creditsGroup.SetActive(false);
         startMenuGroup.SetActive(true);
+    }
+
+    public void ShowHowToPlay()
+    {
+        startMenuGroup.SetActive(false);
+        howToPlayGroup.SetActive(true);
     }
 }
